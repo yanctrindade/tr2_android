@@ -23,7 +23,7 @@ public class MainActivity extends AppCompatActivity {
         VideoView vidView = (VideoView)findViewById(R.id.myVideo);
 
         //String vidAddress = "https://archive.org/download/ksnn_compilation_master_the_internet/ksnn_compilation_master_the_internet_512kb.mp4";
-        //String vidAddress = "https://www.dropbox.com/s/uffooqf2buvrq1n/2016-09-23-145456.webm";
+        String vidAddress = "http://silver472.com.br/video1.mp4";
         Uri vidUri = Uri.parse(vidAddress);
         //We parse the address string as a URI so that we can pass it to the VideoView object:
         vidView.setVideoURI(vidUri);
