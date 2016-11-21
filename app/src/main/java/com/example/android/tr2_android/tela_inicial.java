@@ -1,9 +1,12 @@
 package com.example.android.tr2_android;
 
-import android.support.v7.app.ActionBarActivity;
+import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
 
 
 public class tela_inicial extends ActionBarActivity {
@@ -12,6 +15,16 @@ public class tela_inicial extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tela_inicial);
+
+        final Button login = (Button) findViewById(R.id.login);
+        login.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Efetua o login e vai para a tela principal
+                Intent principal = new Intent(tela_inicial.this, TelaPrincipal.class);
+                startActivity(principal);
+            }
+        });
     }
 
     @Override

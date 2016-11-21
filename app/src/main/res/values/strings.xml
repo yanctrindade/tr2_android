@@ -8,5 +8,6 @@
     <string name="botao_login">Login</string>
     <string name="esqueceu_senha">Esqueceu a senha?</string>
     <string name="inscrever">Inscreva-se</string>
+    <string name="title_activity_tela_principal">TelaPrincipal</string>
 
 </resources>
