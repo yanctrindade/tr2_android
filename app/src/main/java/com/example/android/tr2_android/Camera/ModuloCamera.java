@@ -8,48 +8,46 @@ import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Environment;
 import android.util.Log;
-import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.Toast;
+
+import com.example.android.tr2_android.R;
 
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.util.concurrent.locks.Lock;
-import java.util.concurrent.locks.ReentrantLock;
 
 /**
  * Created by Túlio on 22/11/2016.
  */
 
 public class ModuloCamera {
-    private static final String TAG = "CamTestActivity";
-    Preview preview;
-    Button buttonClick;
-    Camera camera;
-    Context ctx;
-    File ultimoArquivo = null;
-    Object mutex = new Object();
-    Lock lock = new ReentrantLock();
 
-    public ModuloCamera(Context context, FrameLayout frameLayout){
-        this.ctx = context;
+    private static final String TAG = "CamTestActivity";
+    private Camera camera;
+    private Activity act;
+    private Context ctx;
+
+    private File ultimoArquivo = null;
+
+    public ModuloCamera(Context context){
+        ctx = context;
+        act = (Activity) context;
         configurarCamera();
 
-        preview = new Preview(context, camera);
+        FrameLayout frameLayout = (FrameLayout) act.findViewById(R.id.camera_preview);
+        Preview preview = new Preview(ctx, camera);
         frameLayout.addView(preview);
         //preview.setKeepScreenOn(true);
 
     }
 
     public File tirarFoto(){
-        try {
-            camera.takePicture(null, null, null, jpegCallback);
-            Thread.sleep(10000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+        camera.takePicture(null, null, null, jpegCallback);
+        /*while (loop == true) {
+
+        }*/
         return  ultimoArquivo;
     }
 
@@ -93,8 +91,7 @@ public class ModuloCamera {
     private void refreshGallery(File file) {
         Intent mediaScanIntent = new Intent( Intent.ACTION_MEDIA_SCANNER_SCAN_FILE);
         mediaScanIntent.setData(Uri.fromFile(file));
-        final Activity activity = (Activity) ctx;
-        activity.sendBroadcast(mediaScanIntent);
+        act.sendBroadcast(mediaScanIntent);
     }
 
     Camera.PictureCallback jpegCallback = new Camera.PictureCallback() {
@@ -130,36 +127,15 @@ public class ModuloCamera {
                 refreshGallery(outFile);
 
                 ultimoArquivo = outFile;
+                Log.i("Salvar", "Passou pelo JPEG");
 
             } catch (FileNotFoundException e) {
                 e.printStackTrace();
             } catch (IOException e) {
                 e.printStackTrace();
-            } finally {
             }
             return null;
         }
 
-    }
-
-    private class TimeoutOperation extends AsyncTask<String, Void, Void>{
-
-        @Override
-        protected Void doInBackground(String... params) {
-
-            try {
-                Log.i(TAG, "Going to sleep");
-                Thread.sleep(1000);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-            return null;
-        }
-
-        @Override
-        protected void onPostExecute(Void result) {
-            Log.i(TAG, "This is executed after 10 seconds and runs on the main thread");
-            super.onPostExecute(result);
-        }
     }
 }

@@ -7,7 +7,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-import android.widget.FrameLayout;
 import android.widget.ImageView;
 
 import com.example.android.tr2_android.Camera.ModuloCamera;
@@ -16,7 +15,6 @@ import java.io.File;
 
 public class TelaPrincipal extends AppCompatActivity {
 
-    private FrameLayout frameLayout;
     private ModuloCamera moduloCamera;
 
     @Override
@@ -24,11 +22,10 @@ public class TelaPrincipal extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tela_principal);
 
-        frameLayout = (FrameLayout) findViewById(R.id.camera_preview);
         final Button tirar_foto = (Button) findViewById(R.id.tirar_foto);
         final ImageView foto = (ImageView) findViewById(R.id.foto);
 
-        moduloCamera = new ModuloCamera(this, frameLayout);
+        moduloCamera = new ModuloCamera(this);
 
         tirar_foto.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -41,7 +38,7 @@ public class TelaPrincipal extends AppCompatActivity {
                         foto.setImageBitmap(myBitmap);
                         break;
                     } catch(NullPointerException e) {
-                        Log.i("Erro", "Deu null;");
+                        //Log.e("Erro", "Deu null;");
                     }
                 }
                 Log.i("Certo", "É nois!");
