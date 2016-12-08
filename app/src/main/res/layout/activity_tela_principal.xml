@@ -10,6 +10,11 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.example.android.tr2_android.TelaPrincipal">
 
+    <FrameLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/camera_preview"></FrameLayout>
+
     <Button
         android:text="Tirar uma foto"
         android:layout_width="wrap_content"
@@ -17,6 +22,14 @@
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="90dp"
-        android:id="@+id/foto" />
+        android:id="@+id/tirar_foto" />
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/foto"
+        android:layout_below="@+id/tirar_foto"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="147dp" />
 
 </RelativeLayout>

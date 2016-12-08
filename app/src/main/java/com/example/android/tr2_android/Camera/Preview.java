@@ -15,22 +15,18 @@ import java.util.List;
  * Created by Túlio on 22/11/2016.
  */
 
-public class Preview extends ViewGroup implements SurfaceHolder.Callback{
+public class Preview extends SurfaceView implements SurfaceHolder.Callback{
     private final String TAG = "Preview";
 
-    SurfaceView mSurfaceView;
     SurfaceHolder mHolder;
     Camera.Size mPreviewSize;
     List<Camera.Size> mSupportedPreviewSizes;
     Camera mCamera;
 
-    Preview(Context context, SurfaceView sv) {
+    public Preview(Context context) {
         super(context);
 
-        mSurfaceView = sv;
-//        addView(mSurfaceView);
-
-        mHolder = mSurfaceView.getHolder();
+        mHolder = getHolder();
         mHolder.addCallback(this);
         mHolder.setType(SurfaceHolder.SURFACE_TYPE_PUSH_BUFFERS);
     }
@@ -68,40 +64,13 @@ public class Preview extends ViewGroup implements SurfaceHolder.Callback{
         }
     }
 
-    @Override
-    protected void onLayout(boolean changed, int l, int t, int r, int b) {
-        if (changed && getChildCount() > 0) {
-            final View child = getChildAt(0);
-
-            final int width = r - l;
-            final int height = b - t;
-
-            int previewWidth = width;
-            int previewHeight = height;
-            if (mPreviewSize != null) {
-                previewWidth = mPreviewSize.width;
-                previewHeight = mPreviewSize.height;
-            }
-
-            // Center the child SurfaceView within the parent.
-            if (width * previewHeight > height * previewWidth) {
-                final int scaledChildWidth = previewWidth * height / previewHeight;
-                child.layout((width - scaledChildWidth) / 2, 0,
-                        (width + scaledChildWidth) / 2, height);
-            } else {
-                final int scaledChildHeight = previewHeight * width / previewWidth;
-                child.layout(0, (height - scaledChildHeight) / 2,
-                        width, (height + scaledChildHeight) / 2);
-            }
-        }
-    }
-
     public void surfaceCreated(SurfaceHolder holder) {
         // The Surface has been created, acquire the camera and tell it where
         // to draw.
         try {
             if (mCamera != null) {
                 mCamera.setPreviewDisplay(holder);
+                mCamera.startPreview();
             }
         } catch (IOException exception) {
             Log.e(TAG, "IOException caused by setPreviewDisplay()", exception);

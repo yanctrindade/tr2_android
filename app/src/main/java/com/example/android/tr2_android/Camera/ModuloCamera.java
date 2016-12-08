@@ -16,6 +16,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.concurrent.ExecutionException;
 
 /**
  * Created by Túlio on 22/11/2016.
@@ -32,34 +33,48 @@ public class ModuloCamera {
     public ModuloCamera(Context context, Preview preview){
         this.ctx = context;
         this.preview = preview;
-        preview.setLayoutParams(new ViewGroup.LayoutParams(1, 1));
+        //preview.setLayoutParams(new ViewGroup.LayoutParams(1, 1));
 
         preview.setKeepScreenOn(true);
 
         configurarCamera();
     }
 
-    File tirarFoto(){
+    public File tirarFoto(){
         try {
+            camera.takePicture(null, null, null, jpegCallback);
             ultimoArquivo.wait();
-            camera.takePicture(shutterCallback, rawCallback, jpegCallback);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-        return  null;
+        return  ultimoArquivo;
     }
 
     protected void configurarCamera() {
         int numCams = Camera.getNumberOfCameras();
         if(numCams > 0){
             try{
-                camera = Camera.open(0);
+                camera = getCameraInstance();
+                Log.i("Open","camera"+camera);
                 camera.startPreview();
+                Log.i("Open","startpreview"+camera);
                 preview.setCamera(camera);
+                Log.i("Open","preview"+preview);
             } catch (RuntimeException ex){
                 Toast.makeText(ctx, "A camera nao foi encontrada", Toast.LENGTH_LONG).show();
             }
         }
+    }
+
+    public static Camera getCameraInstance(){
+        Camera c = null;
+        try {
+            c = Camera.open(); // attempt to get a Camera instance
+        }
+        catch (Exception e){
+            // Camera is not available (in use or does not exist)
+        }
+        return c; // returns null if camera is unavailable
     }
 
     protected void onPause() {
@@ -82,18 +97,6 @@ public class ModuloCamera {
         final Activity activity = (Activity) ctx;
         activity.sendBroadcast(mediaScanIntent);
     }
-
-    Camera.ShutterCallback shutterCallback = new Camera.ShutterCallback() {
-        public void onShutter() {
-            //			 Log.d(TAG, "onShutter'd");
-        }
-    };
-
-    Camera.PictureCallback rawCallback = new Camera.PictureCallback() {
-        public void onPictureTaken(byte[] data, Camera camera) {
-            //			 Log.d(TAG, "onPictureTaken - raw");
-        }
-    };
 
     Camera.PictureCallback jpegCallback = new Camera.PictureCallback() {
         public void onPictureTaken(byte[] data, Camera camera) {
@@ -126,6 +129,11 @@ public class ModuloCamera {
                 Log.d(TAG, "onPictureTaken - wrote bytes: " + data.length + " to " + outFile.getAbsolutePath());
 
                 refreshGallery(outFile);
+
+                ultimoArquivo = outFile;
+
+                ultimoArquivo.notify();
+
             } catch (FileNotFoundException e) {
                 e.printStackTrace();
             } catch (IOException e) {
