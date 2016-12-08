@@ -8,15 +8,16 @@ import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Environment;
 import android.util.Log;
-import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.FrameLayout;
 import android.widget.Toast;
 
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.util.concurrent.ExecutionException;
+import java.util.concurrent.locks.Lock;
+import java.util.concurrent.locks.ReentrantLock;
 
 /**
  * Created by Túlio on 22/11/2016.
@@ -29,21 +30,23 @@ public class ModuloCamera {
     Camera camera;
     Context ctx;
     File ultimoArquivo = null;
+    Object mutex = new Object();
+    Lock lock = new ReentrantLock();
 
-    public ModuloCamera(Context context, Preview preview){
+    public ModuloCamera(Context context, FrameLayout frameLayout){
         this.ctx = context;
-        this.preview = preview;
-        //preview.setLayoutParams(new ViewGroup.LayoutParams(1, 1));
-
-        preview.setKeepScreenOn(true);
-
         configurarCamera();
+
+        preview = new Preview(context, camera);
+        frameLayout.addView(preview);
+        //preview.setKeepScreenOn(true);
+
     }
 
     public File tirarFoto(){
         try {
             camera.takePicture(null, null, null, jpegCallback);
-            ultimoArquivo.wait();
+            Thread.sleep(10000);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
@@ -56,10 +59,6 @@ public class ModuloCamera {
             try{
                 camera = getCameraInstance();
                 Log.i("Open","camera"+camera);
-                camera.startPreview();
-                Log.i("Open","startpreview"+camera);
-                preview.setCamera(camera);
-                Log.i("Open","preview"+preview);
             } catch (RuntimeException ex){
                 Toast.makeText(ctx, "A camera nao foi encontrada", Toast.LENGTH_LONG).show();
             }
@@ -80,7 +79,7 @@ public class ModuloCamera {
     protected void onPause() {
         if(camera != null) {
             camera.stopPreview();
-            preview.setCamera(null);
+            //preview.setCamera(null);
             camera.release();
             camera = null;
         }
@@ -88,7 +87,7 @@ public class ModuloCamera {
 
     private void resetCam() {
         camera.startPreview();
-        preview.setCamera(camera);
+        //preview.setCamera(camera);
     }
 
     private void refreshGallery(File file) {
@@ -131,8 +130,6 @@ public class ModuloCamera {
                 refreshGallery(outFile);
 
                 ultimoArquivo = outFile;
-
-                ultimoArquivo.notify();
 
             } catch (FileNotFoundException e) {
                 e.printStackTrace();
