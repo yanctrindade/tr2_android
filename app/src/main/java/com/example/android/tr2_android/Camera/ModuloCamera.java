@@ -3,6 +3,8 @@ package com.example.android.tr2_android.Camera;
 import android.app.Activity;
 import android.content.Context;
 import android.hardware.Camera;
+import android.media.CamcorderProfile;
+import android.media.MediaRecorder;
 import android.net.Uri;
 import android.os.Environment;
 import android.util.Log;
@@ -28,6 +30,8 @@ public class ModuloCamera {
     private Camera camera;
     private Activity act;
     private Context ctx;
+    private MediaRecorder mediaRecorder;
+    private Preview preview;
     public static final int MEDIA_TYPE_IMAGE = 1;
     public static final int MEDIA_TYPE_VIDEO = 2;
 
@@ -39,7 +43,7 @@ public class ModuloCamera {
         configurarCamera();
 
         FrameLayout frameLayout = (FrameLayout) act.findViewById(R.id.camera_preview);
-        Preview preview = new Preview(ctx, camera);
+        preview = new Preview(ctx, camera);
         frameLayout.addView(preview);
         //preview.setKeepScreenOn(true);
 
@@ -80,6 +84,23 @@ public class ModuloCamera {
             camera.release();
             camera = null;
         }
+    }
+
+    public void releaseMediaRecorder(){
+        if (mediaRecorder != null) {
+            mediaRecorder.reset();   // clear recorder configuration
+            mediaRecorder.release(); // release the recorder object
+            mediaRecorder = null;
+            camera.lock();           // lock camera for later use
+        }
+    }
+
+    public void startMediaRecorder(){
+        mediaRecorder.start();
+    }
+
+    public void stopMediaRecordig(){
+        mediaRecorder.stop();
     }
 
     private void resetCam() {
@@ -162,5 +183,41 @@ public class ModuloCamera {
         }
 
         return mediaFile;
+    }
+
+    public boolean prepareVideoRecorder(){
+
+        mediaRecorder = new MediaRecorder();
+
+        // Step 1: Unlock and set camera to MediaRecorder
+        camera.unlock();
+        mediaRecorder.setCamera(camera);
+
+        // Step 2: Set sources
+        mediaRecorder.setAudioSource(MediaRecorder.AudioSource.CAMCORDER);
+        mediaRecorder.setVideoSource(MediaRecorder.VideoSource.CAMERA);
+
+        // Step 3: Set a CamcorderProfile (requires API Level 8 or higher)
+        mediaRecorder.setProfile(CamcorderProfile.get(CamcorderProfile.QUALITY_HIGH));
+
+        // Step 4: Set output file
+        mediaRecorder.setOutputFile(getOutputMediaFile(MEDIA_TYPE_VIDEO).toString());
+
+        // Step 5: Set the preview output
+        mediaRecorder.setPreviewDisplay(preview.getHolder().getSurface());
+
+        // Step 6: Prepare configured MediaRecorder
+        try {
+            mediaRecorder.prepare();
+        } catch (IllegalStateException e) {
+            Log.d(TAG, "IllegalStateException preparing MediaRecorder: " + e.getMessage());
+            releaseMediaRecorder();
+            return false;
+        } catch (IOException e) {
+            Log.d(TAG, "IOException preparing MediaRecorder: " + e.getMessage());
+            releaseMediaRecorder();
+            return false;
+        }
+        return true;
     }
 }
