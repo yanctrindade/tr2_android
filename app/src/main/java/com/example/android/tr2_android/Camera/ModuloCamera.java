@@ -31,7 +31,7 @@ public class ModuloCamera {
     public static final int MEDIA_TYPE_IMAGE = 1;
     public static final int MEDIA_TYPE_VIDEO = 2;
 
-    private File ultimoArquivo = null;
+    public File ultimoArquivo = null;
 
     public ModuloCamera(Context context){
         ctx = context;
@@ -46,10 +46,7 @@ public class ModuloCamera {
     }
 
     public File tirarFoto(){
-        camera.takePicture(null, null, null, mPicture);
-        /*while (loop == true) {
-
-        }*/
+        camera.takePicture(shutterCallback, rawCallback, null, mPicture);
         return  ultimoArquivo;
     }
 
@@ -90,11 +87,24 @@ public class ModuloCamera {
         //preview.setCamera(camera);
     }
 
-    private Camera.PictureCallback mPicture = new Camera.PictureCallback() {
 
-        @Override
+    Camera.ShutterCallback shutterCallback = new Camera.ShutterCallback() {
+        public void onShutter() {
+            //			 Log.d(TAG, "onShutter'd");
+        }
+    };
+
+    Camera.PictureCallback rawCallback = new Camera.PictureCallback() {
+        public void onPictureTaken(byte[] data, Camera camera) {
+            //			 Log.d(TAG, "onPictureTaken - raw");
+        }
+    };
+
+
+    private Camera.PictureCallback mPicture = new Camera.PictureCallback() {
         public void onPictureTaken(byte[] data, Camera camera) {
 
+            Log.d("JPEG", "Entrei");
             ultimoArquivo = getOutputMediaFile(MEDIA_TYPE_IMAGE);
             if (ultimoArquivo == null){
                 Log.d(TAG, "Error creating media file, check storage permissions: ");
@@ -110,6 +120,7 @@ public class ModuloCamera {
             } catch (IOException e) {
                 Log.d(TAG, "Error accessing file: " + e.getMessage());
             }
+            resetCam();
         }
     };
 
