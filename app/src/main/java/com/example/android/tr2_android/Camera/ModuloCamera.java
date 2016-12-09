@@ -73,7 +73,7 @@ public class ModuloCamera {
         return c; // returns null if camera is unavailable
     }
 
-    protected void onPause() {
+    public void releaseCamera() {
         if(camera != null) {
             camera.stopPreview();
             //preview.setCamera(null);
