@@ -32,6 +32,9 @@ import java.io.IOException;
 import java.util.Hashtable;
 import java.util.Map;
 
+//{'name': "teste", 'file': base64}
+//nome_arquivo e arq_base64
+
 public class MainActivity extends AppCompatActivity implements View.OnClickListener  {
 
     private Button buttonChoose;
@@ -46,8 +49,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private int PICK_IMAGE_REQUEST = 1;
 
     private String UPLOAD_URL ="http://bspy.herokuapp.com/salvar";
-    private String KEY_IMAGE = "file";
-    private String KEY_NAME = "name";
+    private String KEY_NAME = "name";  //strig
+    private String KEY_FILE = "file";  //base64
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -109,8 +113,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 Map<String,String> params = new Hashtable<String, String>();
 
                 //Adding parameters
-                params.put(KEY_IMAGE, image);
                 params.put(KEY_NAME, name);
+                params.put(KEY_FILE, image);
 
                 //returning parameters
                 return params;
