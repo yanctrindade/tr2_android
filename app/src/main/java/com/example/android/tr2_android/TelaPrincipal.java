@@ -19,7 +19,7 @@ public class TelaPrincipal extends AppCompatActivity {
     private ModuloCamera moduloCamera;
     private Button gravar_video;
 
-    private int tamanhoVideo = 3000; //milissegundos
+    private int duracaoVideo = 3000; //milissegundos
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,7 +44,7 @@ public class TelaPrincipal extends AppCompatActivity {
         gravar_video.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                moduloCamera.gravarVideo(tamanhoVideo, new ModuloCamera.VideoCallBack() {
+                moduloCamera.gravarVideo(duracaoVideo, new ModuloCamera.VideoCallBack() {
                     @Override
                     public void videoCallBack(File video) {
                         Log.i("CallBack","Video: "+video);

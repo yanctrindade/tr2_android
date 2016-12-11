@@ -43,7 +43,7 @@ public class ModuloCamera {
     private FotoCallBack fotoCallBack;
     private VideoCallBack videoCallBack;
 
-    private int tamanhoVideo;
+    private int duracaoVideo;
 
     public ModuloCamera(Context context){
         ctx = context;
@@ -63,9 +63,9 @@ public class ModuloCamera {
         camera.takePicture(shutterCallback, rawCallback, null, mPicture);
     }
 
-    public void gravarVideo(int tamanhoVideo, VideoCallBack videoCallBack){
+    public void gravarVideo(int duracaoVideo, VideoCallBack videoCallBack){
         this.videoCallBack = videoCallBack;
-        this.tamanhoVideo = tamanhoVideo;
+        this.duracaoVideo = duracaoVideo;
         new GravaVideo().execute();
     }
 
@@ -271,7 +271,7 @@ public class ModuloCamera {
         @Override
         protected Void doInBackground(Void... voids) {
             try {
-                Thread.sleep(tamanhoVideo);
+                Thread.sleep(duracaoVideo);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
