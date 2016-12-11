@@ -6,6 +6,7 @@ import android.hardware.Camera;
 import android.media.CamcorderProfile;
 import android.media.MediaRecorder;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Environment;
 import android.util.Log;
 import android.widget.FrameLayout;
@@ -19,6 +20,8 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Objects;
+import java.util.concurrent.ExecutionException;
 
 /**
  * Created by Túlio on 22/11/2016.
@@ -37,6 +40,11 @@ public class ModuloCamera {
 
     public File ultimoArquivo = null;
 
+    private FotoCallBack fotoCallBack;
+    private VideoCallBack videoCallBack;
+
+    private int tamanhoVideo;
+
     public ModuloCamera(Context context){
         ctx = context;
         act = (Activity) context;
@@ -49,9 +57,16 @@ public class ModuloCamera {
 
     }
 
-    public File tirarFoto(){
+    public void tirarFoto(FotoCallBack fotoCallBack){
+        this.fotoCallBack = fotoCallBack;
+        ultimoArquivo = null;
         camera.takePicture(shutterCallback, rawCallback, null, mPicture);
-        return  ultimoArquivo;
+    }
+
+    public void gravarVideo(int tamanhoVideo, VideoCallBack videoCallBack){
+        this.videoCallBack = videoCallBack;
+        this.tamanhoVideo = tamanhoVideo;
+        new GravaVideo().execute();
     }
 
     protected void configurarCamera() {
@@ -101,6 +116,11 @@ public class ModuloCamera {
 
     public void stopMediaRecordig(){
         mediaRecorder.stop();
+        getvideo();
+    }
+
+    private void getvideo(){
+        videoCallBack.videoCallBack(getOutputMediaFile(MEDIA_TYPE_VIDEO));
     }
 
     private void resetCam() {
@@ -126,8 +146,9 @@ public class ModuloCamera {
         public void onPictureTaken(byte[] data, Camera camera) {
 
             Log.d("JPEG", "Entrei");
+
             ultimoArquivo = getOutputMediaFile(MEDIA_TYPE_IMAGE);
-            if (ultimoArquivo == null){
+            if (ultimoArquivo == null) {
                 Log.d(TAG, "Error creating media file, check storage permissions: ");
                 return;
             }
@@ -141,6 +162,9 @@ public class ModuloCamera {
             } catch (IOException e) {
                 Log.d(TAG, "Error accessing file: " + e.getMessage());
             }
+
+            fotoCallBack.fotoCallBack(ultimoArquivo);
+
             resetCam();
         }
     };
@@ -219,5 +243,49 @@ public class ModuloCamera {
             return false;
         }
         return true;
+    }
+
+    public interface FotoCallBack {
+        void fotoCallBack(File foto);
+    }
+
+    public interface VideoCallBack {
+        void videoCallBack(File video);
+    }
+
+    private class GravaVideo extends AsyncTask<Void,Void,Void>{
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            if(prepareVideoRecorder()){
+                startMediaRecorder();
+                //gravar_video.setText("Gravando...");
+            } else {
+                // prepare didn't work, release the camera
+                releaseMediaRecorder();
+                // inform user
+            }
+        }
+
+        @Override
+        protected Void doInBackground(Void... voids) {
+            try {
+                Thread.sleep(tamanhoVideo);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void aVoid) {
+            super.onPostExecute(aVoid);
+            stopMediaRecordig();  // stop the recording
+            releaseMediaRecorder(); // release the MediaRecorder object
+
+            // inform the user that recording has stopped
+            //gravar_video.setText("Gravar");
+        }
     }
 }
