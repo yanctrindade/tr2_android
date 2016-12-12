@@ -1,16 +1,19 @@
 package com.example.vitor.myapplication;
 
 import android.app.Activity;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.example.vitor.myapplication.LoginServidor.LoginListener;
+
 /**
  * Created by vitor on 09/11/16.
  */
 
-public class ClienteActivity extends Activity {
+public class ClienteActivity extends Activity implements LoginListener{
 
     private EditText edNome;
     private EditText edSenha;
@@ -66,8 +69,13 @@ public class ClienteActivity extends Activity {
 
     public void clickConfirmar(View v){
 
-        Toast.makeText(ClienteActivity.this, "Dados:" + edNome.getText() + edSenha.getText(), Toast.LENGTH_SHORT).show();
+        AsyncTask execute = new LoginServidor(this).execute();
 
+
+    }
+
+    @Override
+    public void OnLoginConcluido(String sitiacaoLogin) {
 
     }
 }
