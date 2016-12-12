@@ -13,8 +13,9 @@ public class MainActivity extends Activity {
         super.onCreate(savedInstanceState);
         super.setContentView(R.layout.activity_main);
     }
-    public void onCLickCadastro(View v) {
+    public void onCLickLogin(View v) {
 
         startActivityForResult(new Intent(this, ClienteActivity.class), 1);
+
     }
 }

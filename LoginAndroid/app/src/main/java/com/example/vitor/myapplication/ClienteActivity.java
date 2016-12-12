@@ -13,9 +13,8 @@ import android.widget.Toast;
 public class ClienteActivity extends Activity {
 
     private EditText edNome;
-    private EditText edEmail;
     private EditText edSenha;
-    private EditText edConfirmaSenha;
+    private EditText edServidor;
 
     public ClienteActivity() {
         super();
@@ -27,9 +26,8 @@ public class ClienteActivity extends Activity {
         setContentView(R.layout.cadcliente);
 
         edNome = (EditText)findViewById(R.id.edNome);
-        edEmail = (EditText)findViewById(R.id.edEmail);
         edSenha = (EditText)findViewById(R.id.edSenha);
-        edConfirmaSenha= (EditText)findViewById(R.id.edConfirmSenha);
+        edServidor = (EditText)findViewById(R.id.edServidor);
 
         edNome.setOnFocusChangeListener(new View.OnFocusChangeListener(){
 
@@ -53,37 +51,22 @@ public class ClienteActivity extends Activity {
             }
         });
 
-        edConfirmaSenha.setOnFocusChangeListener(new View.OnFocusChangeListener(){
+        edServidor.setOnFocusChangeListener(new View.OnFocusChangeListener(){
 
             @Override
             public void onFocusChange(View view, boolean b) {
 
-                if(edSenha.getText() != edConfirmaSenha.getText()){
-                    edConfirmaSenha.setError("Confirmação inválida");
+                if(edServidor.getText().length() == 0){
+                    edServidor.setError("Nome deve ter algum valor");
                 }
             }
         });
-
-        edEmail.setOnFocusChangeListener(new View.OnFocusChangeListener(){
-
-            @Override
-            public void onFocusChange(View view, boolean b) {
-
-                String emailInput = edEmail.getText().toString().trim();
-                String emailPattern = "^[_A-Za-z0-9-]+(\\.[_A-Za-z0-9-]+)*@[A-Za-z0-9]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$";
-
-                if(!emailInput.matches(emailPattern)) {
-                    edEmail.setError("Email inválido");
-                }
-            }
-        });
-
 
     }
 
     public void clickConfirmar(View v){
 
-        Toast.makeText(ClienteActivity.this, "Dados:" + edNome.getText() + edEmail.getText() + edSenha.getText() + edConfirmaSenha.getText(), Toast.LENGTH_SHORT).show();
+        Toast.makeText(ClienteActivity.this, "Dados:" + edNome.getText() + edSenha.getText(), Toast.LENGTH_SHORT).show();
 
 
     }

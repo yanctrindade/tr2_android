@@ -16,15 +16,6 @@
         android:inputType="textPersonName"
         android:hint="Nome"
         android:layout_marginTop="5dp"></EditText>
-
-    <EditText
-        android:id = "@+id/edEmail"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:maxLines="1"
-        android:inputType="textEmailAddress"
-        android:hint="E-mail"
-        android:layout_marginTop="5dp"></EditText>
     <EditText
         android:id = "@+id/edSenha"
         android:layout_width="match_parent"
@@ -34,12 +25,12 @@
         android:hint="Senha"
         android:layout_marginTop="5dp"></EditText>
     <EditText
-        android:id = "@+id/edConfirmSenha"
+        android:id = "@+id/edServidor"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:maxLines="1"
-        android:inputType="textPassword"
-        android:hint="Confirmar Senha"
+        android:inputType="text|textNoSuggestions"
+        android:hint="Servidor"
         android:layout_marginTop="5dp"></EditText>
     <LinearLayout
             android:layout_width="match_parent"

@@ -1,14 +1,10 @@
 package com.example.android.tr2_android;
 
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-import android.widget.FrameLayout;
-import android.widget.ImageView;
 
 import com.example.android.tr2_android.Camera.ModuloCamera;
 
@@ -16,36 +12,55 @@ import java.io.File;
 
 public class TelaPrincipal extends AppCompatActivity {
 
-    private FrameLayout frameLayout;
     private ModuloCamera moduloCamera;
+    private Button gravar_video;
+
+    private int duracaoVideo = 3000; //milissegundos
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tela_principal);
 
-        frameLayout = (FrameLayout) findViewById(R.id.camera_preview);
         final Button tirar_foto = (Button) findViewById(R.id.tirar_foto);
-        final ImageView foto = (ImageView) findViewById(R.id.foto);
-
-        moduloCamera = new ModuloCamera(this, frameLayout);
+        gravar_video = (Button) findViewById(R.id.gravar_video);
 
         tirar_foto.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // TODO Tira a foto
-                File fileFoto = moduloCamera.tirarFoto();
-                while (true) {
-                    try{
-                        Bitmap myBitmap = BitmapFactory.decodeFile(fileFoto.getAbsolutePath());
-                        foto.setImageBitmap(myBitmap);
-                        break;
-                    } catch(NullPointerException e) {
-                        Log.i("Erro", "Deu null;");
+                moduloCamera.tirarFoto(new ModuloCamera.FotoCallBack() {
+                    @Override
+                    public void fotoCallBack(File foto) {
+                        Log.i("CallBack","Foto: "+foto);
                     }
-                }
-                Log.i("Certo", "É nois!");
+                });
             }
         });
+
+        gravar_video.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                moduloCamera.gravarVideo(duracaoVideo, new ModuloCamera.VideoCallBack() {
+                    @Override
+                    public void videoCallBack(File video) {
+                        Log.i("CallBack","Video: "+video);
+                    }
+                });
+            }
+        });
+
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        moduloCamera.releaseCamera();
+        moduloCamera.releaseMediaRecorder();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        moduloCamera = new ModuloCamera(this);
     }
 }
