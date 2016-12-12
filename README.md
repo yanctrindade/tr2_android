@@ -1,4 +1,5 @@
-# tr2_android
+﻿# tr2_android
+Aplicativo para fazer monitoramento de segurança utilizando a câmera de um aparelho celular com sistema Android.
 
 Update do leia-me para testar a integração.
 
@@ -12,4 +13,9 @@ Update do leia-me para testar a integração.
 	-> Envia uma imagem do celular para um servidor
 	https://www.simplifiedcoding.net/android-volley-tutorial-to-upload-image-to-server/
 
-- Pair programming Gabriel e Marina.
+## Tela de Login
+A tela de Login recebe os dados de login e deve estabelecer uma conexão com o servidor. Se a conexão for bem sucedida então ela levará para a Tela Principal.
+
+## Tela Principal
+A tela principal deve tratar as requisições do servidor.
+>>>>>>> b7d1d7fc45cafeecfdc4453726d4212888dd21e7
