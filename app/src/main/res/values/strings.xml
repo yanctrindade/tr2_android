@@ -9,5 +9,8 @@
     <string name="esqueceu_senha">Esqueceu a senha?</string>
     <string name="inscrever">Inscreva-se</string>
     <string name="title_activity_tela_principal">TelaPrincipal</string>
+    <string name="servidor">Servidor</string>
+    <string name="nome">Nome</string>
+    <string name="para_testes">Para testes...</string>
 
 </resources>
