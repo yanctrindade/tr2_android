@@ -20,8 +20,6 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.Objects;
-import java.util.concurrent.ExecutionException;
 
 /**
  * Created by Túlio on 22/11/2016.
