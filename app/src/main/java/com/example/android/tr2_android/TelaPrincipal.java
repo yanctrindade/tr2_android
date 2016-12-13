@@ -93,11 +93,7 @@ public class TelaPrincipal extends AppCompatActivity {
         super.onPause();
         moduloCamera.releaseCamera();
         moduloCamera.releaseMediaRecorder();
-        try {
-            ss.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        arduinoSocket.interrupt();
     }
 
     @Override
@@ -204,6 +200,14 @@ public class TelaPrincipal extends AppCompatActivity {
                     }
                 }
             });
+        }
+        public void interrupt() {
+            this.interrupt();
+            try {
+                ss.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
     }
 }
