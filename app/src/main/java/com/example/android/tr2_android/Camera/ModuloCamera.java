@@ -81,8 +81,25 @@ public class ModuloCamera {
 
     public static Camera getCameraInstance(){
         Camera c = null;
+        Camera.Size result = null;
         try {
             c = Camera.open(); // attempt to get a Camera instance
+            Camera.Parameters params = c.getParameters();
+            for (Camera.Size size : params.getSupportedPictureSizes()) {
+                if (result == null) {
+                    result = size;
+                }
+                else {
+                    int resultArea = result.width * result.height;
+                    int newArea = size.width * size.height;
+
+                    if (newArea < resultArea) {
+                        result = size;
+                    }
+                }
+            }
+            params.setPictureSize(result.width, result.height);
+            c.setParameters(params);
         }
         catch (Exception e){
             // Camera is not available (in use or does not exist)

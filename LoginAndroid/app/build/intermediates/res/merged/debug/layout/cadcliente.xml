@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+
+    <EditText
+        android:id = "@+id/edNome"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:maxLines="1"
+        android:inputType="textPersonName"
+        android:hint="Nome"
+        android:layout_marginTop="5dp"></EditText>
+
+    <EditText
+        android:id = "@+id/edEmail"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:maxLines="1"
+        android:inputType="textEmailAddress"
+        android:hint="E-mail"
+        android:layout_marginTop="5dp"></EditText>
+    <EditText
+        android:id = "@+id/edSenha"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:maxLines="1"
+        android:inputType="textPassword"
+        android:hint="Senha"
+        android:layout_marginTop="5dp"></EditText>
+    <EditText
+        android:id = "@+id/edConfirmSenha"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:maxLines="1"
+        android:inputType="textPassword"
+        android:hint="Confirmar Senha"
+        android:layout_marginTop="5dp"></EditText>
+    <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="35dp">
+            <Button
+                android:id="@+id/btnCancelar"
+                android:layout_width="190dp"
+                android:layout_height="wrap_content"
+                android:text="Cancelar"
+                android:onClick="clickCancelar"></Button>
+            <Button
+                android:id="@+id/btnCanfirmar"
+                android:layout_width="190dp"
+                android:layout_height="wrap_content"
+                android:text="Confirmar"
+                android:onClick="clickConfirmar"></Button>
+
+        </LinearLayout>
+
+</LinearLayout>
