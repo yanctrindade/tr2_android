@@ -21,9 +21,13 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.android.tr2_android.Camera.ModuloCamera;
 
+import java.io.BufferedReader;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStreamReader;
+import java.net.ServerSocket;
+import java.net.Socket;
 import java.util.Hashtable;
 import java.util.Map;
 
@@ -39,6 +43,9 @@ public class TelaPrincipal extends AppCompatActivity {
 
     private int duracaoVideo = 3000; //milissegundos
 
+    private Thread arduinoSocket = null;
+    ServerSocket ss = null;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -46,6 +53,8 @@ public class TelaPrincipal extends AppCompatActivity {
 
         tirar_foto = (Button) findViewById(R.id.tirar_foto);
         gravar_video = (Button) findViewById(R.id.gravar_video);
+
+
 
         tirar_foto.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -84,12 +93,19 @@ public class TelaPrincipal extends AppCompatActivity {
         super.onPause();
         moduloCamera.releaseCamera();
         moduloCamera.releaseMediaRecorder();
+        try {
+            ss.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
     protected void onResume() {
         super.onResume();
         moduloCamera = new ModuloCamera(this);
+        arduinoSocket = new Thread(new CommsThread());
+        arduinoSocket.start();
     }
 
     private void uploadImage(final Bitmap bitmap, final String nameFile)
@@ -149,5 +165,45 @@ public class TelaPrincipal extends AppCompatActivity {
         bmp.compress(Bitmap.CompressFormat.JPEG, 100, baos);
         byte[] imageBytes = baos.toByteArray();
         return Base64.encodeToString(imageBytes, Base64.DEFAULT);
+    }
+
+    class CommsThread implements Runnable {
+        public void run() {
+            Socket s = null;
+            try {
+                ss = new ServerSocket(12345);
+                Log.d("Socket", "Socket criado " + ss.getInetAddress() + " " + ss.getLocalPort() + " " + ss);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            boolean end = false;
+            String st = null;
+            while (!end) {
+                try {
+                    if (s == null)
+                        s = ss.accept();
+                    BufferedReader input = new BufferedReader(new InputStreamReader(s.getInputStream()));
+                    st = null;
+                    st = input.readLine();
+                    Log.d("Mensagem Socket", st);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                if (st.equalsIgnoreCase("foto")){
+                    end = true; }
+            }
+            moduloCamera.tirarFoto(new ModuloCamera.FotoCallBack() {
+                @Override
+                public void fotoCallBack(File foto) {
+                    Log.i("CallBack","Foto: "+foto);
+                    try {
+                        Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), Uri.fromFile(foto));
+                        uploadImage(bitmap, foto.getName());
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+            });
+        }
     }
 }
