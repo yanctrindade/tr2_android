@@ -104,6 +104,7 @@ public class TelaPrincipal extends AppCompatActivity {
                         loading.dismiss();
                         //Showing toast message of the response
                         Toast.makeText(TelaPrincipal.this, s , Toast.LENGTH_LONG).show();
+                        // Log.d("log1", s);
                     }
                 },
                 new Response.ErrorListener() {
@@ -114,12 +115,15 @@ public class TelaPrincipal extends AppCompatActivity {
 
                         //Showing toast
                         Toast.makeText(TelaPrincipal.this, volleyError.getMessage(), Toast.LENGTH_LONG).show();
+                        // Log.d("log2", volleyError.getMessage());
                     }
                 }){
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
                 //Converting Bitmap to String
                 String image = getStringImage(bitmap);
+
+                Log.d("base64", image);
 
                 //Creating parameters
                 Map<String,String> params = new Hashtable<String, String>();
