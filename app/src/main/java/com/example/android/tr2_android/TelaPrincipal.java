@@ -2,9 +2,7 @@ package com.example.android.tr2_android;
 
 import android.app.ProgressDialog;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.Matrix;
-import android.media.ExifInterface;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
@@ -249,7 +247,7 @@ public class TelaPrincipal extends AppCompatActivity {
 
         @Override
         public void run() {
-            if(msg.equalsIgnoreCase("foto")) {
+            if(msg != null && msg.equalsIgnoreCase("foto")) {
                 moduloCamera.tirarFoto(new ModuloCamera.FotoCallBack() {
                     @Override
                     public void fotoCallBack(File foto) {
