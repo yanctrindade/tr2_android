@@ -6,11 +6,7 @@
     </shared>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="62559c31-e9f3-42d9-bb7d-11705a6c6f68" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/example/android/tr2_android/Login/LoginServidor.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/android/tr2_android/Login/LoginServidor.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/example/android/tr2_android/TelaLogin.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/android/tr2_android/TelaLogin.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_tela_login.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_tela_login.xml" />
-    </list>
+    <list default="true" id="62559c31-e9f3-42d9-bb7d-11705a6c6f68" name="Default" comment="" />
     <ignored path="PROJ_TR2.iws" />
     <ignored path=".idea/workspace.xml" />
     <ignored path="$PROJECT_DIR$/build/classes/" />
