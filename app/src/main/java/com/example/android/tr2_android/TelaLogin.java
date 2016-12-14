@@ -1,7 +1,6 @@
 package com.example.android.tr2_android;
 
 import android.content.Intent;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -19,15 +18,13 @@ public class TelaLogin extends AppCompatActivity {
     private Button login;
     private Button teste;
 
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tela_login);
 
 
-        edEmail = (EditText)findViewById(R.id.edNome);
+        edEmail = (EditText)findViewById(R.id.edEmail);
         edSenha = (EditText)findViewById(R.id.edSenha);
         edServidor = (EditText)findViewById(R.id.edServidor);
 
@@ -64,7 +61,7 @@ public class TelaLogin extends AppCompatActivity {
         login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                LoginServidor objLogin = new LoginServidor(edEmail,edSenha);
+                LoginServidor objLogin = new LoginServidor(edEmail,edSenha, TelaLogin.this);
                 final String response = objLogin.sendDataToServer();
                 if(response == "true"){
                     Intent principal = new Intent(TelaLogin.this, TelaPrincipal.class);
@@ -83,10 +80,5 @@ public class TelaLogin extends AppCompatActivity {
 
             }
         });
-    }
-
-    @Override
-    public void OnLoginConcluido(String sitiacaoLogin) {
-
     }
 }
