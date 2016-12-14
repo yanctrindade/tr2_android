@@ -17,13 +17,14 @@ import java.io.IOException;
 public class Preview extends SurfaceView implements SurfaceHolder.Callback{
     private SurfaceHolder mHolder;
     private Camera mCamera;
+    private int degrees = 0;
     private static final String TAG = "Imagem";
 
     public Preview(Context context, Camera camera) {
         super(context);
         mCamera = camera;
 
-        setCameraDisplayOrientation((Activity) context, camera);
+        degrees = setCameraDisplayOrientation((Activity) context, camera);
 
         // Install a SurfaceHolder.Callback so we get notified when the
         // underlying surface is created and destroyed.
@@ -76,7 +77,7 @@ public class Preview extends SurfaceView implements SurfaceHolder.Callback{
         }
     }
 
-    public static void setCameraDisplayOrientation(Activity activity, Camera camera) {
+    public static int setCameraDisplayOrientation(Activity activity, Camera camera) {
         Camera.CameraInfo info = new Camera.CameraInfo();
         Camera.getCameraInfo(0, info);
         int rotation = activity.getWindowManager().getDefaultDisplay().getRotation();
@@ -96,5 +97,10 @@ public class Preview extends SurfaceView implements SurfaceHolder.Callback{
             result = (info.orientation - degrees + 360) % 360;
         }
         camera.setDisplayOrientation(result);
+        return result;
+    }
+
+    int getDegrees(){
+        return degrees;
     }
 }

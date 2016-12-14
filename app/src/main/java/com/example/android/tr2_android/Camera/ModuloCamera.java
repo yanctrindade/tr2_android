@@ -110,10 +110,11 @@ public class ModuloCamera {
     public void releaseCamera() {
         if(camera != null) {
             camera.stopPreview();
-            //preview.setCamera(null);
             camera.release();
             camera = null;
+            preview = null;
         }
+
     }
 
     public void releaseMediaRecorder(){
@@ -136,6 +137,10 @@ public class ModuloCamera {
 
     private void getvideo(){
         videoCallBack.videoCallBack(getOutputMediaFile(MEDIA_TYPE_VIDEO));
+    }
+
+    public int getDegrees(){
+        return preview.getDegrees();
     }
 
     private void resetCam() {
