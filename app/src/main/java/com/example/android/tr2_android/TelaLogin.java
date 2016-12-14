@@ -66,7 +66,7 @@ public class TelaLogin extends AppCompatActivity {
             public void onClick(View v) {
                 LoginServidor objLogin = new LoginServidor(edNome,edSenha);
                 final String response = objLogin.sendDataToServer();
-                if(response != null){
+                if(response == "true"){
                     Intent principal = new Intent(TelaLogin.this, TelaPrincipal.class);
                     startActivity(principal);
                 }

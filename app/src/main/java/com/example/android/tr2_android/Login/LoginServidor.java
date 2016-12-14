@@ -50,7 +50,7 @@ public class LoginServidor{
 
             protected void OnPostExecute(String result){
 
-                if(response == null){
+                if(response == 'false' || response == null){
 
                     Toast toast = Toast.makeText(getApplicationContext(),"Erro na Autenticaçao",Toast.LENGTH_SHORT);
                     toast.show();
