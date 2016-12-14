@@ -65,9 +65,6 @@ public class TelaPrincipal extends AppCompatActivity {
         tirar_foto.bringToFront();
         gravar_video.bringToFront();
 
-        arduinoSocket = new Thread(new ServerThread());
-        arduinoSocket.start();
-
         tirar_foto.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -108,13 +105,9 @@ public class TelaPrincipal extends AppCompatActivity {
     @Override
     protected void onPause() {
         super.onPause();
-        moduloCamera.releaseCamera();
         moduloCamera.releaseMediaRecorder();
-    }
-
-    @Override
-    protected void onStop() {
-        super.onStop();
+        moduloCamera.releaseCamera();
+        arduinoSocket.interrupt();
         try {
             ss.close();
         } catch (IOException e) {
@@ -123,9 +116,16 @@ public class TelaPrincipal extends AppCompatActivity {
     }
 
     @Override
+    protected void onStop() {
+        super.onStop();
+    }
+
+    @Override
     protected void onResume() {
         super.onResume();
         moduloCamera = new ModuloCamera(this);
+        arduinoSocket = new Thread(new ServerThread());
+        arduinoSocket.start();
     }
 
     private void uploadImage(final Bitmap bitmap, final String nameFile)
@@ -188,6 +188,7 @@ public class TelaPrincipal extends AppCompatActivity {
     }
 
     class ServerThread implements Runnable {
+        CommunicationThread commThread;
         public void run() {
             Socket s = null;
             try {
@@ -199,7 +200,7 @@ public class TelaPrincipal extends AppCompatActivity {
             while (!Thread.currentThread().isInterrupted()) {
                 try {
                     s = ss.accept();
-                    CommunicationThread commThread = new CommunicationThread(s);
+                    commThread = new CommunicationThread(s);
                     new Thread(commThread).start();
                 } catch (IOException e) {
                     e.printStackTrace();
@@ -234,6 +235,9 @@ public class TelaPrincipal extends AppCompatActivity {
                     e.printStackTrace();
                 }
             }
+        }
+        public void interrupt() {
+            this.interrupt();
         }
     }
 

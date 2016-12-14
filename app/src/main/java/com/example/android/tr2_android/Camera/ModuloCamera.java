@@ -110,10 +110,11 @@ public class ModuloCamera {
     public void releaseCamera() {
         if(camera != null) {
             camera.stopPreview();
-            //preview.setCamera(null);
             camera.release();
             camera = null;
+            preview = null;
         }
+
     }
 
     public void releaseMediaRecorder(){
