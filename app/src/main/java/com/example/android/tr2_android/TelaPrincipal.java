@@ -2,8 +2,12 @@ package com.example.android.tr2_android;
 
 import android.app.ProgressDialog;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.Matrix;
+import android.media.ExifInterface;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
 import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Base64;
@@ -44,17 +48,27 @@ public class TelaPrincipal extends AppCompatActivity {
     private int duracaoVideo = 3000; //milissegundos
 
     private Thread arduinoSocket = null;
-    ServerSocket ss = null;
+    private ServerSocket ss = null;
+
+    public static final int SERVERPORT = 12345;
+
+    Handler updateConversationHandler;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tela_principal);
 
+        updateConversationHandler = new Handler();
+
         tirar_foto = (Button) findViewById(R.id.tirar_foto);
         gravar_video = (Button) findViewById(R.id.gravar_video);
 
+        tirar_foto.bringToFront();
+        gravar_video.bringToFront();
 
+        arduinoSocket = new Thread(new ServerThread());
+        arduinoSocket.start();
 
         tirar_foto.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -65,6 +79,11 @@ public class TelaPrincipal extends AppCompatActivity {
                         Log.i("CallBack","Foto: "+foto);
                         try {
                             Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), Uri.fromFile(foto));
+                            Matrix matrix = new Matrix();
+                            int width = bitmap.getWidth();
+                            int height = bitmap.getHeight();
+                            matrix.setRotate(moduloCamera.getDegrees());
+                            bitmap = Bitmap.createBitmap(bitmap,0,0,width,height,matrix,true);
                             uploadImage(bitmap, foto.getName());
                         } catch (IOException e) {
                             e.printStackTrace();
@@ -93,6 +112,11 @@ public class TelaPrincipal extends AppCompatActivity {
         super.onPause();
         moduloCamera.releaseCamera();
         moduloCamera.releaseMediaRecorder();
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
         try {
             ss.close();
         } catch (IOException e) {
@@ -104,8 +128,6 @@ public class TelaPrincipal extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         moduloCamera = new ModuloCamera(this);
-        arduinoSocket = new Thread(new CommsThread());
-        arduinoSocket.start();
     }
 
     private void uploadImage(final Bitmap bitmap, final String nameFile)
@@ -167,43 +189,85 @@ public class TelaPrincipal extends AppCompatActivity {
         return Base64.encodeToString(imageBytes, Base64.DEFAULT);
     }
 
-    class CommsThread implements Runnable {
+    class ServerThread implements Runnable {
         public void run() {
             Socket s = null;
             try {
-                ss = new ServerSocket(12345);
+                ss = new ServerSocket(SERVERPORT);
                 Log.d("Socket", "Socket criado " + ss.getInetAddress() + " " + ss.getLocalPort() + " " + ss);
             } catch (IOException e) {
                 e.printStackTrace();
             }
-            boolean end = false;
-            String st = null;
-            while (!end) {
+            while (!Thread.currentThread().isInterrupted()) {
                 try {
-                    if (s == null)
-                        s = ss.accept();
-                    BufferedReader input = new BufferedReader(new InputStreamReader(s.getInputStream()));
-                    st = null;
-                    st = input.readLine();
-                    Log.d("Mensagem Socket", st);
+                    s = ss.accept();
+                    CommunicationThread commThread = new CommunicationThread(s);
+                    new Thread(commThread).start();
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
-                if (st.equalsIgnoreCase("foto")){
-                    end = true; }
             }
-            moduloCamera.tirarFoto(new ModuloCamera.FotoCallBack() {
-                @Override
-                public void fotoCallBack(File foto) {
-                    Log.i("CallBack","Foto: "+foto);
-                    try {
-                        Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), Uri.fromFile(foto));
-                        uploadImage(bitmap, foto.getName());
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
+        }
+    }
+
+    private class CommunicationThread implements Runnable{
+
+        private Socket clientSocket;
+        private BufferedReader input;
+
+        public CommunicationThread(Socket clientSocket){
+            this.clientSocket = clientSocket;
+
+            try {
+                this.input = new BufferedReader(new InputStreamReader(this.clientSocket.getInputStream()));
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+
+        @Override
+        public void run() {
+            while (!Thread.currentThread().isInterrupted()){
+                String read = null;
+                try {
+                    read = input.readLine();
+                    updateConversationHandler.post(new updateUIThread(read));
+                } catch (IOException e) {
+                    e.printStackTrace();
                 }
-            });
+            }
+        }
+    }
+
+    private class updateUIThread implements Runnable{
+
+        private String msg;
+
+        public updateUIThread(String str){
+            this.msg = str;
+        }
+
+        @Override
+        public void run() {
+            if(msg.equalsIgnoreCase("foto")) {
+                moduloCamera.tirarFoto(new ModuloCamera.FotoCallBack() {
+                    @Override
+                    public void fotoCallBack(File foto) {
+                        Log.i("CallBack", "Foto: " + foto);
+                        try {
+                            Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), Uri.fromFile(foto));
+                            Matrix matrix = new Matrix();
+                            int width = bitmap.getWidth();
+                            int height = bitmap.getHeight();
+                            matrix.setRotate(moduloCamera.getDegrees());
+                            bitmap = Bitmap.createBitmap(bitmap, 0, 0, width, height, matrix, true);
+                            uploadImage(bitmap, foto.getName());
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                });
+            }
         }
     }
 }

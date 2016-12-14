@@ -138,6 +138,10 @@ public class ModuloCamera {
         videoCallBack.videoCallBack(getOutputMediaFile(MEDIA_TYPE_VIDEO));
     }
 
+    public int getDegrees(){
+        return preview.getDegrees();
+    }
+
     private void resetCam() {
         camera.startPreview();
         //preview.setCamera(camera);
