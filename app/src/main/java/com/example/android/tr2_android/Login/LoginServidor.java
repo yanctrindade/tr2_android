@@ -69,7 +69,7 @@ public class LoginServidor{
 
         final JSONObject root = new JSONObject();
         try{
-            root.put("user",login);
+            root.put("email",login);
             root.put("password",senha);
 
             return root.toString(1);
@@ -81,7 +81,7 @@ public class LoginServidor{
 
     private String getServerResponse(String json){
 
-        HttpPost post = new HttpPost("");
+        HttpPost post = new HttpPost("http://bspy.herokuapp.com/autenticar");
         try{
             DefaultHttpClient client = new DefaultHttpClient();
 

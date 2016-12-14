@@ -13,7 +13,7 @@ import com.example.android.tr2_android.Login.LoginServidor;
 
 public class TelaLogin extends AppCompatActivity {
 
-    private EditText edNome;
+    private EditText edEmail;
     private EditText edSenha;
     private EditText edServidor;
     private Button login;
@@ -27,15 +27,15 @@ public class TelaLogin extends AppCompatActivity {
         setContentView(R.layout.activity_tela_login);
 
 
-        edNome = (EditText)findViewById(R.id.edNome);
+        edEmail = (EditText)findViewById(R.id.edNome);
         edSenha = (EditText)findViewById(R.id.edSenha);
         edServidor = (EditText)findViewById(R.id.edServidor);
 
-        edNome.setOnFocusChangeListener(new View.OnFocusChangeListener(){
+        edEmail.setOnFocusChangeListener(new View.OnFocusChangeListener(){
             @Override
             public void onFocusChange(View view, boolean b) {
-                if(edNome.getText().length() == 0){
-                    edNome.setError("Nome deve ter algum valor");
+                if(edEmail.getText().length() == 0){
+                    edEmail.setError("Nome deve ter algum valor");
                 }
             }
         });
@@ -64,7 +64,7 @@ public class TelaLogin extends AppCompatActivity {
         login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                LoginServidor objLogin = new LoginServidor(edNome,edSenha);
+                LoginServidor objLogin = new LoginServidor(edEmail,edSenha);
                 final String response = objLogin.sendDataToServer();
                 if(response == "true"){
                     Intent principal = new Intent(TelaLogin.this, TelaPrincipal.class);
