@@ -1,0 +1,185 @@
+<?xml version="1.0" encoding="utf-8"?>
+<items version="2" >
+
+    <item
+        is-multidex="false"
+        jar="/home/vitor/AndroidStudioProjects/MyApplication/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-appindexing/8.4.0/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="65d086ee9daaf87b5af62ad24471edafa433354c">
+        <dex dex="/home/vitor/AndroidStudioProjects/MyApplication/app/build/intermediates/pre-dexed/debug/com.google.android.gms-play-services-appindexing-8.4.0_cc6c1719cdf5ef09ad17022115d0b45a49a823d3.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/home/vitor/AndroidStudioProjects/MyApplication/app/build/intermediates/exploded-aar/com.android.support/support-fragment/25.0.0/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="07daa0b6e1d455c82a38422ffe287c18823d339a">
+        <dex dex="/home/vitor/AndroidStudioProjects/MyApplication/app/build/intermediates/pre-dexed/debug/com.android.support-support-fragment-25.0.0_0405f720936c019ba4e08bcca5af35b90bde369a.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/home/vitor/AndroidStudioProjects/MyApplication/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-basement/8.4.0/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="8e673cdfadd8f2d98fdb2fda2285c30f6e449782">
+        <dex dex="/home/vitor/AndroidStudioProjects/MyApplication/app/build/intermediates/pre-dexed/debug/com.google.android.gms-play-services-basement-8.4.0_f4967aa21f62f46c6c06c81826547a5106b245d7.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/home/vitor/AndroidStudioProjects/MyApplication/app/build/intermediates/incremental-classes/debug/instant-run-bootstrap.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="a04ed779b344ae525da43998854fc6971b285cdf">
+        <dex dex="/home/vitor/AndroidStudioProjects/MyApplication/app/build/intermediates/pre-dexed/debug/instant-run-bootstrap_4d101a52faa9ea7d65f4872bbb964f7cf2e81a4e.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/home/vitor/AndroidStudioProjects/MyApplication/app/build/intermediates/exploded-aar/com.android.support/support-core-ui/25.0.0/jars/libs/internal_impl-25.0.0.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="e5343c9d19cb19ff55f6b268c7f3fe8c9d224f6f">
+        <dex dex="/home/vitor/AndroidStudioProjects/MyApplication/app/build/intermediates/pre-dexed/debug/internal_impl-25.0.0_194c1ad963797f19c9d4373b067070a91d90376b.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/home/vitor/AndroidStudioProjects/MyApplication/app/build/intermediates/exploded-aar/com.android.support/support-core-ui/25.0.0/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="26674000177e45447a0326a6ad84612761199a13">
+        <dex dex="/home/vitor/AndroidStudioProjects/MyApplication/app/build/intermediates/pre-dexed/debug/com.android.support-support-core-ui-25.0.0_4f6591c68c0776752d8e45e505b90b61346f3fc3.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/home/vitor/AndroidStudioProjects/MyApplication/app/build/intermediates/exploded-aar/com.android.support/support-compat/25.0.0/jars/libs/internal_impl-25.0.0.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="f2e3b9bc1ec25f652e8007ce7774c991e38f6a00">
+        <dex dex="/home/vitor/AndroidStudioProjects/MyApplication/app/build/intermediates/pre-dexed/debug/internal_impl-25.0.0_5a7d9bc60145a8bfc29cc1cfe4e52daf743a228e.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/home/vitor/AndroidStudioProjects/MyApplication/app/build/intermediates/exploded-aar/com.android.support/support-v4/25.0.0/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="d7c42c80f6509b9ea4db28ca7859ffae08ec5741">
+        <dex dex="/home/vitor/AndroidStudioProjects/MyApplication/app/build/intermediates/pre-dexed/debug/com.android.support-support-v4-25.0.0_4f5bfd44db835c009e943c74aedca97bed6baa2b.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/home/vitor/AndroidStudioProjects/MyApplication/app/build/intermediates/incremental-runtime-classes/debug/instant-run.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="e8ff52dd58720d8867a14d9c89964a44e4c43246">
+        <dex dex="/home/vitor/AndroidStudioProjects/MyApplication/app/build/intermediates/pre-dexed/debug/instant-run_2cfaa4e8e6aba649c5b9dbf7cf728d1aef56e793.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/home/vitor/AndroidStudioProjects/MyApplication/app/build/intermediates/exploded-aar/com.android.support/support-vector-drawable/25.0.0/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="d29714cc76b38157e3cbd034c66e1ec808eb4c19">
+        <dex dex="/home/vitor/AndroidStudioProjects/MyApplication/app/build/intermediates/pre-dexed/debug/com.android.support-support-vector-drawable-25.0.0_68f9ff71cd7a35dd3ef0392b3e67b6035bdfcc77.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/home/vitor/AndroidStudioProjects/MyApplication/app/build/intermediates/exploded-aar/com.android.support/animated-vector-drawable/25.0.0/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="53a420cd4f49274db6bd43475f8006ba67ef6bbd">
+        <dex dex="/home/vitor/AndroidStudioProjects/MyApplication/app/build/intermediates/pre-dexed/debug/com.android.support-animated-vector-drawable-25.0.0_3f14c2db8a4d9d13a7d7fc5ec27e8c4132194051.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/home/vitor/AndroidStudioProjects/MyApplication/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-base/8.4.0/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="fef2b3e4b6b1b0e5fe7b69fa137a5fa55a3182ab">
+        <dex dex="/home/vitor/AndroidStudioProjects/MyApplication/app/build/intermediates/pre-dexed/debug/com.google.android.gms-play-services-base-8.4.0_53ea8009832e9b9bb800923b1f49efc6b53c90a7.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/home/vitor/AndroidStudioProjects/MyApplication/app/build/intermediates/exploded-aar/com.android.support/support-core-utils/25.0.0/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="4ccbcda5c72027c7f7c14be9ff8640d9cb0d8da0">
+        <dex dex="/home/vitor/AndroidStudioProjects/MyApplication/app/build/intermediates/pre-dexed/debug/com.android.support-support-core-utils-25.0.0_4b6d6e68b5021d888d1604640762fe9e2ee3eb62.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/home/vitor/AndroidStudioProjects/MyApplication/app/build/intermediates/exploded-aar/com.android.support/support-compat/25.0.0/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="75b1f366ff0bbc78f8b1f7cf0dc82e7c53afef6a">
+        <dex dex="/home/vitor/AndroidStudioProjects/MyApplication/app/build/intermediates/pre-dexed/debug/com.android.support-support-compat-25.0.0_59ae640679690c567b37cc4b1676d1d97eb61594.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/home/vitor/AndroidStudioProjects/MyApplication/app/build/intermediates/exploded-aar/com.android.support/support-media-compat/25.0.0/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="76fb65a4b41ea42dab8a1310ed772a2420c96b52">
+        <dex dex="/home/vitor/AndroidStudioProjects/MyApplication/app/build/intermediates/pre-dexed/debug/com.android.support-support-media-compat-25.0.0_b0d5534da361ac6f2a100b56e4876e7ad0ab5e35.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/home/vitor/AndroidStudioProjects/MyApplication/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/25.0.0/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="8bc45ce1f63d1a391fd38b32a201be5a42f9c95d">
+        <dex dex="/home/vitor/AndroidStudioProjects/MyApplication/app/build/intermediates/pre-dexed/debug/com.android.support-appcompat-v7-25.0.0_25938f62d45bae83de4ee64537fd5baa087738bf.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/home/vitor/Android/Sdk/extras/android/m2repository/com/android/support/support-annotations/25.0.0/support-annotations-25.0.0.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="a22d2cc94da87b254451fa8ed28afc30b4653773">
+        <dex dex="/home/vitor/AndroidStudioProjects/MyApplication/app/build/intermediates/pre-dexed/debug/support-annotations-25.0.0_d5e9aa38c47f6444822333b12bfd59e87ca51287.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/home/vitor/AndroidStudioProjects/MyApplication/app/build/intermediates/exploded-aar/com.android.support/support-core-utils/25.0.0/jars/libs/internal_impl-25.0.0.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="3b61a70884adaf0be3fc06c70c801e3e6df13133">
+        <dex dex="/home/vitor/AndroidStudioProjects/MyApplication/app/build/intermediates/pre-dexed/debug/internal_impl-25.0.0_9f8cab29f8ab33d95e44f411ead839858f431503.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/home/vitor/AndroidStudioProjects/MyApplication/app/build/intermediates/exploded-aar/com.android.support/support-media-compat/25.0.0/jars/libs/internal_impl-25.0.0.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="665d21a8a069c96b4d9e8b434f5096d865b4e261">
+        <dex dex="/home/vitor/AndroidStudioProjects/MyApplication/app/build/intermediates/pre-dexed/debug/internal_impl-25.0.0_a990fb9f18e70bc0edac86b1e54f7f032c346b86.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/home/vitor/AndroidStudioProjects/MyApplication/app/build/intermediates/exploded-aar/com.android.support/support-fragment/25.0.0/jars/libs/internal_impl-25.0.0.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="ee5faf4dee5b6a4364bf51587871047dde7c703a">
+        <dex dex="/home/vitor/AndroidStudioProjects/MyApplication/app/build/intermediates/pre-dexed/debug/internal_impl-25.0.0_b5e9a6bbb4264eb020d34a18ab371533b4ba3696.jar" />
+    </item>
+
+</items>
