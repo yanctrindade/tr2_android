@@ -11,6 +11,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Base64;
 import android.util.Log;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.Toast;
 
@@ -58,6 +59,8 @@ public class TelaPrincipal extends AppCompatActivity {
         setContentView(R.layout.activity_tela_principal);
 
         updateConversationHandler = new Handler();
+
+        getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
 
         tirar_foto = (Button) findViewById(R.id.tirar_foto);
         gravar_video = (Button) findViewById(R.id.gravar_video);
