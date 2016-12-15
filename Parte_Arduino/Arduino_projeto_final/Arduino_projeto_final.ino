@@ -8,15 +8,16 @@ SoftwareSerial esp8266(11, 12);
 
 const byte ledPin = 13;
 const byte inputPin = 2;
-String target_ip="192.168.100.176";
-String port="13000";
+String target_ip="192.168.43.20";
+String port="4444";
 volatile boolean value;
-String sendStr="Sensor moveu para 1";
+String sendStr="foto";
  
 #define DEBUG true
  
 void setup()
 {
+  digitalWrite(ledPin, LOW);
   Serial.begin(9600);
   esp8266.begin(9600);
   pinMode(ledPin, OUTPUT);      // declare LED as output
@@ -24,7 +25,7 @@ void setup()
  
   sendData("AT+RST\r\n", 2000, DEBUG);
   // Conecta a rede wireless
-  sendData("AT+CWJAP=\"D-LINK-BLACK\",\"julho2008\"\r\n", 10000, DEBUG);
+  sendData("AT+CWJAP=\"Weebo-Phone\",\"weebophone\"\r\n", 10000, DEBUG);
   sendData("AT+CWMODE=1\r\n", 1000, DEBUG);
   // Mostra o endereco IP
   sendData("AT+CIFSR\r\n", 1000, DEBUG);
@@ -33,13 +34,14 @@ void setup()
 
   attachInterrupt(digitalPinToInterrupt(inputPin), sendUpdate, RISING);
   value=false;
+  digitalWrite(ledPin, HIGH);  // turn LED ON
 }
 
 
-int i=0;
  
 void loop()
 {  
+  
     if(value==true) {
       //Setup connection  
       String at_connection_start="";
@@ -57,8 +59,8 @@ void loop()
       cipsend+="\r\n";
       sendData(cipsend, 1000, DEBUG); // rst
       sendData(sendStr,1000,DEBUG);
+      sendData("AT+CIPCLOSE\r\n", 1000, DEBUG);
 
-      i++;
       
       value=false;
 

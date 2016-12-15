@@ -15,8 +15,8 @@ int val;
  
 void setup()
 {
-  Serial.begin(19200);
-  esp8266.begin(19200);
+  Serial.begin(9600);
+  esp8266.begin(9600);
   pinMode(ledPin, OUTPUT);      // declare LED as output
   pinMode(inputPin, INPUT_PULLUP);     // declare sensor as input
  
