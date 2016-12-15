@@ -48,7 +48,7 @@ public class TelaPrincipal extends AppCompatActivity {
     private Thread arduinoSocket = null;
     private ServerSocket ss = null;
 
-    public static final int SERVERPORT = 12345;
+    public static final int SERVERPORT = 4444;
 
     Handler updateConversationHandler;
 
