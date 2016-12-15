@@ -8,17 +8,13 @@ import android.widget.Toast;
 
 import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.methods.HttpPost;
-import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.BasicResponseHandler;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
-import java.net.HttpURLConnection;
-import java.net.URL;
 
 /**
  * Created by vitor on 12/12/16.
@@ -28,9 +24,12 @@ public class LoginServidor{
 
     private String login;
     private String senha;
+    private String response;
+    private Context ctx;
 
-    public LoginServidor(EditText edNome,EditText edSenha){
+    public LoginServidor(EditText edNome,EditText edSenha, Context context){
 
+        ctx = context;
         login = edNome.getText().toString();
         senha = edSenha.getText().toString();
 
@@ -39,7 +38,6 @@ public class LoginServidor{
     public String sendDataToServer() {
 
         final String json = formatDataAsJSON();
-        final String response = null;
         new AsyncTask<Void,Void,String>(){
 
             @Override
@@ -50,9 +48,9 @@ public class LoginServidor{
 
             protected void OnPostExecute(String result){
 
-                if(response == 'false' || response == null){
+                if(response.equalsIgnoreCase("false") || response == null){
 
-                    Toast toast = Toast.makeText(getApplicationContext(),"Erro na Autenticaçao",Toast.LENGTH_SHORT);
+                    Toast toast = Toast.makeText(ctx,"Erro na Autenticaçao",Toast.LENGTH_SHORT);
                     toast.show();
                 }
             }
@@ -87,9 +85,7 @@ public class LoginServidor{
 
             BasicResponseHandler handler = new BasicResponseHandler();
 
-            String response = client.execute(post, handler);
-
-            return response;
+            return client.execute(post, handler);
         }catch(UnsupportedEncodingException e){
             e.printStackTrace();
 

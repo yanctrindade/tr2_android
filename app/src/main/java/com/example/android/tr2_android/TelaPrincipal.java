@@ -159,8 +159,6 @@ public class TelaPrincipal extends AppCompatActivity {
                 //Converting Bitmap to String
                 String image = getStringImage(bitmap);
 
-                Log.d("base64", image);
-
                 //Creating parameters
                 Map<String,String> params = new Hashtable<String, String>();
 
@@ -199,6 +197,7 @@ public class TelaPrincipal extends AppCompatActivity {
             }
             while (!Thread.currentThread().isInterrupted()) {
                 try {
+                    Log.d("TCP", "Esperando conexão");
                     s = ss.accept();
                     commThread = new CommunicationThread(s);
                     new Thread(commThread).start();
@@ -235,9 +234,6 @@ public class TelaPrincipal extends AppCompatActivity {
                     e.printStackTrace();
                 }
             }
-        }
-        public void interrupt() {
-            this.interrupt();
         }
     }
 
