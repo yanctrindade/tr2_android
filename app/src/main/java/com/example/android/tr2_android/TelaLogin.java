@@ -27,7 +27,7 @@ public class TelaLogin extends AppCompatActivity {
     //private EditText edServidor;
     private TextView creditos;
     private Button login;
-    private Button teste;
+    //private Button teste;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -106,7 +106,7 @@ public class TelaLogin extends AppCompatActivity {
             }
         });
 
-        teste = (Button) findViewById(R.id.teste);
+        /*teste = (Button) findViewById(R.id.teste);
         teste.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -115,7 +115,7 @@ public class TelaLogin extends AppCompatActivity {
                 startActivity(principal);
 
             }
-        });
+        });*/
     }
 
     public boolean validate() {

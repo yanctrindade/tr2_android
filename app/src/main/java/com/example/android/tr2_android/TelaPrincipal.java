@@ -67,8 +67,8 @@ public class TelaPrincipal extends AppCompatActivity {
 
 
         final AlertDialog.Builder builder = new AlertDialog.Builder(TelaPrincipal.this);
-        builder.setTitle("Sua câmera esta pronta para começar a monitorar o ambiente.")
-                .setMessage(" Coloque o celular em algum lugar estratégico para começar o monitoramento.")
+        builder.setTitle("Sua câmera esta pronta para monitorar o ambiente.")
+                .setMessage("Coloque o celular em algum lugar estratégico para começar o monitoramento.")
                 .setCancelable(false)
                 .setPositiveButton("ok", new DialogInterface.OnClickListener() {
                     @Override
