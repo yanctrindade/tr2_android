@@ -63,6 +63,8 @@ public class TelaPrincipal extends AppCompatActivity {
         updateConversationHandler = new Handler();
 
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
+
 
         final AlertDialog.Builder builder = new AlertDialog.Builder(TelaPrincipal.this);
         builder.setTitle("Sua câmera esta pronta para começar a monitorar o ambiente.")

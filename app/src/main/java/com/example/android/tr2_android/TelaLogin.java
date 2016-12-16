@@ -24,7 +24,7 @@ public class TelaLogin extends AppCompatActivity {
 
     private EditText edEmail;
     private EditText edSenha;
-    private EditText edServidor;
+    //private EditText edServidor;
     private TextView creditos;
     private Button login;
     private Button teste;
@@ -37,7 +37,7 @@ public class TelaLogin extends AppCompatActivity {
 
         edEmail = (EditText)findViewById(R.id.edEmail);
         edSenha = (EditText)findViewById(R.id.edSenha);
-        edServidor = (EditText)findViewById(R.id.edServidor);
+        //edServidor = (EditText)findViewById(R.id.edServidor);
         creditos = (TextView) findViewById(R.id.link_creditos);
 
         final ImageView creditosImage = new ImageView(this);
@@ -125,14 +125,14 @@ public class TelaLogin extends AppCompatActivity {
         String password = edSenha.getText().toString();
 
         if (email.isEmpty() || !android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
-            edEmail.setError("");
+            edEmail.setError("email inválido");
             valid = false;
         } else {
             edEmail.setError(null);
         }
 
-        if (password.isEmpty() || password.length() < 4 ) {
-            edSenha.setError("senha tem que ter mais do que 4 caracteres");
+        if (password.isEmpty() || password.length() < 8 ) {
+            edSenha.setError("A senha deve ter no mínimo 8 caracteres");
             valid = false;
         } else {
             edSenha.setError(null);
