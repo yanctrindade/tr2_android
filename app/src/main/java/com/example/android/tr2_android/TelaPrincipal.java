@@ -37,8 +37,8 @@ import java.util.Map;
 public class TelaPrincipal extends AppCompatActivity {
 
     private ModuloCamera moduloCamera;
-    private Button gravar_video;
-    private Button tirar_foto;
+    //private Button gravar_video;
+    //private Button tirar_foto;
 
     private String UPLOAD_URL ="http://bspy.herokuapp.com/salvar";
     private String KEY_NAME = "name";  //strig
@@ -62,7 +62,7 @@ public class TelaPrincipal extends AppCompatActivity {
 
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
 
-        tirar_foto = (Button) findViewById(R.id.tirar_foto);
+        /*tirar_foto = (Button) findViewById(R.id.tirar_foto);
         gravar_video = (Button) findViewById(R.id.gravar_video);
 
         tirar_foto.bringToFront();
@@ -101,7 +101,7 @@ public class TelaPrincipal extends AppCompatActivity {
                     }
                 });
             }
-        });
+        });*/
 
     }
 

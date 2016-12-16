@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.example.android.tr2_android.TelaPrincipal">
-
+    <!--
     <Button
         android:text="Gravar"
         android:layout_width="wrap_content"
@@ -21,6 +21,7 @@
         android:id="@+id/tirar_foto"
         android:layout_below="@+id/gravar_video"
         android:layout_centerHorizontal="true"/>
+        -->
 
     <FrameLayout
         android:layout_width="match_parent"
