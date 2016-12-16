@@ -5,6 +5,7 @@ android {
     buildToolsVersion '25.0.0'
 
     defaultConfig {
+        multiDexEnabled true
         applicationId "com.example.android.tr2_android"
         minSdkVersion 10
         targetSdkVersion 22
@@ -25,5 +26,5 @@ dependencies {
     compile 'com.android.support:design:22.2.1'
     compile 'com.mcxiaoke.volley:library-aar:1.0.0'
     compile 'com.android.volley:volley:1.0.0'
-    compile 'com.koushikdutta.ion:ion:2.+'
+    compile 'com.koushikdutta.ion:ion:2.1.9'
 }
