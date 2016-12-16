@@ -6,8 +6,12 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.example.android.tr2_android.Login.LoginServidor;
+import com.google.gson.JsonObject;
+import com.koushikdutta.async.future.FutureCallback;
+import com.koushikdutta.ion.Ion;
 
 
 public class TelaLogin extends AppCompatActivity {
@@ -60,13 +64,42 @@ public class TelaLogin extends AppCompatActivity {
         login = (Button) findViewById(R.id.login);
         login.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
-                LoginServidor objLogin = new LoginServidor(edEmail,edSenha, TelaLogin.this);
-                final String response = objLogin.sendDataToServer();
-                if(response == "true"){
-                    Intent principal = new Intent(TelaLogin.this, TelaPrincipal.class);
-                    startActivity(principal);
-                }
+            public void onClick(View v){
+
+                String login = edEmail.getText().toString();
+                String senha = edSenha.getText().toString();
+
+                JsonObject json = new JsonObject();
+                json.addProperty("email",login);
+                json.addProperty("password", senha);
+                Ion.with(getApplicationContext())
+                        .load("http://bspy.herokuapp.com/autenticar")
+                        .setJsonObjectBody(json)
+                        .asJsonObject()
+                        .setCallback(new FutureCallback<JsonObject>() {
+                            @Override
+                            public void onCompleted(Exception e, JsonObject result) {
+                                // do stuff with the result or error
+                                if(e == null){
+                                    boolean success = result.get("res").getAsBoolean();
+                                    if (success) {
+                                        Intent principal = new Intent(TelaLogin.this, TelaPrincipal.class);
+                                        startActivity(principal);
+                                    } else {
+
+                                        Toast toast = Toast.makeText(getApplicationContext(), "Acesso negado", Toast.LENGTH_SHORT);
+                                        toast.show();
+                                    }
+                                }
+                                else {
+
+                                    Toast toast = Toast.makeText(getApplicationContext(), "Serviço indisponível ou usuário incorreto", Toast.LENGTH_SHORT);
+                                    toast.show();
+                                }
+
+                            }
+                        });
+
             }
         });
 
