@@ -64,6 +64,19 @@ public class TelaPrincipal extends AppCompatActivity {
 
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
 
+        final AlertDialog.Builder builder = new AlertDialog.Builder(TelaPrincipal.this);
+        builder.setTitle("Sua câmera esta pronta para começar a monitorar o ambiente.")
+                .setMessage(" Coloque o celular em algum lugar estratégico para começar o monitoramento.")
+                .setCancelable(false)
+                .setPositiveButton("ok", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        dialogInterface.dismiss();
+                    }
+                });
+        final AlertDialog alert = builder.create();
+        alert.show();
+
         /*tirar_foto = (Button) findViewById(R.id.tirar_foto);
         gravar_video = (Button) findViewById(R.id.gravar_video);
 
@@ -119,7 +132,7 @@ public class TelaPrincipal extends AppCompatActivity {
         alertDialog.setButton(AlertDialog.BUTTON_NEGATIVE, "Cancelar", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int id) {
 
-                //...
+                dialog.dismiss();
 
             }});
         alertDialog.show();
